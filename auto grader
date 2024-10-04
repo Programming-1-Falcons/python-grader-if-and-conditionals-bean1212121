@@ -1,0 +1,56 @@
+def calculate_grade(total_points, points_achieved):
+    """
+    Calculate the letter grade based on the points achieved.
+    
+    Parameters:
+    total_points (int): The total points possible for the assignment.
+    points_achieved (int): The points achieved by the student.
+    
+    Returns:
+    str: The letter grade corresponding to the points achieved.
+    """
+    try:
+        # Validate input types
+        if not isinstance(total_points, (int, float)) or not isinstance(points_achieved, (int, float)):
+            raise ValueError("Total points and points achieved must be numeric values.")
+        
+        # Validate that total points is greater than zero
+        if total_points <= 0:
+            raise ValueError("Total points must be greater than zero.")
+        
+        # Calculate percentage
+        percentage = (points_achieved / total_points) * 100
+        
+        # Determine letter grade
+        if percentage < 0 or percentage > 100:
+            raise ValueError("Points achieved must be between 0 and total points.")
+        
+        if percentage >= 89:
+            return 'A'
+        elif percentage >= 76:
+            return 'B'
+        elif percentage >= 61:
+            return 'C'
+        elif percentage >= 51:
+            return 'D'
+        else:
+            return 'F'
+    
+    except ZeroDivisionError:
+        return "Error: Total points cannot be zero."
+    except ValueError as ve:
+        return f"Input Error: {ve}"
+    except Exception as e:
+        return f"An unexpected error occurred: {e}"
+
+# Example usage
+if __name__ == "__main__":
+    try:
+        total_points = float(input("Enter the total points possible: "))
+        points_achieved = float(input("Enter the points achieved by the student: "))
+        
+        grade = calculate_grade(total_points, points_achieved)
+        print(f"The letter grade is: {grade}")
+    
+    except ValueError:
+        print("Please enter valid numeric values for points.")
